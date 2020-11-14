@@ -7,9 +7,12 @@ for i in sources/*.txt tests/*.txt; do
     fstcompile --isymbols=syms.txt --osymbols=syms.txt $i | fstarcsort > compiled/$(basename $i ".txt").fst
 done
 
+fstconcat compiled/horas.fst compiled/e_to_colon.fst compiled/text2num_aux.fst
+fstconcat compiled/text2num_aux.fst compiled/minutos.fst compiled/text2num.fst
 
-# TODO
+fstconcat compiled/horas.fst compiled/zero_minutos.fst compiled/lazy2num.fst
 
+rm compiled/e_to_colon.fst compiled/text2num_aux.fst compiled/zero_minutos.fst
 
 for i in compiled/*.fst; do
 	echo "Creating image: images/$(basename $i '.fst').pdf"
@@ -27,3 +30,9 @@ fstcompose compiled/teste_meias.fst compiled/meias.fst | fstshortestpath | fstpr
 
 echo "Testing the transducer 'quartos' with the input 'tests/teste_quartos.txt'"
 fstcompose compiled/teste_quartos.fst compiled/quartos.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'text2num' with the input 'tests/teste_text2num.txt'"
+fstcompose compiled/teste_text2num.fst compiled/text2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'lazy2num' with the input 'tests/teste_lazy2num.txt'"
+fstcompose compiled/teste_lazy2num.fst compiled/lazy2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
