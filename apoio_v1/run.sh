@@ -23,6 +23,8 @@ fstconcat compiled/rich2text_aux.fst compiled/meias_quartos.fst compiled/rich2te
 fstcompose  compiled/rich2text.fst  compiled/text2num.fst compiled/rich2num_aux.fst
 fstunion compiled/rich2num_aux.fst compiled/lazy2num.fst compiled/rich2num.fst
 
+fstinvert compiled/text2num.fst compiled/num2text.fst
+
 rm compiled/e_to_colon.fst compiled/text2num_aux.fst
 rm compiled/zero_minutos.fst compiled/lazy2num_aux1.fst compiled/lazy2num_aux2.fst
 rm compiled/horas2text.fst compiled/e2text.fst compiled/meias_quartos.fst compiled/rich2text_aux.fst
@@ -55,3 +57,18 @@ fstcompose compiled/teste_rich2text.fst compiled/rich2text.fst | fstshortestpath
 
 echo "Testing the transducer 'rich2num' with the input 'tests/teste_rich2num.txt'"
 fstcompose compiled/teste_rich2num.fst compiled/rich2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'rich2num' with the input 'tests/sleepA_86375.txt'"
+fstcompose compiled/sleepA_86375.fst compiled/rich2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'rich2num' with the input 'tests/sleepB_89469.txt'"
+fstcompose compiled/sleepB_89469.fst compiled/rich2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'num2text' with the input 'tests/teste_num2text.txt'"
+fstcompose compiled/teste_num2text.fst compiled/num2text.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'num2text' with the input 'tests/wakeupA_86375.txt'"
+fstcompose compiled/wakeupA_86375.fst compiled/num2text.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'num2text' with the input 'tests/wakeupB_89469.txt'"
+fstcompose compiled/wakeupB_89469.fst compiled/num2text.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
