@@ -16,6 +16,9 @@ for i in compiled/*.fst; do
     fstdraw --portrait --isymbols=syms.txt --osymbols=syms.txt $i | dot -Tpdf > images/$(basename $i '.fst').pdf
 done
 
+echo "Testing the transducer 'horas' with the input 'tests/teste_horas.txt'"
+fstcompose compiled/teste_horas.fst compiled/horas.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
 echo "Testing the transducer 'minutos' with the input 'tests/teste_minutos.txt'"
 fstcompose compiled/teste_minutos.fst compiled/minutos.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
 
