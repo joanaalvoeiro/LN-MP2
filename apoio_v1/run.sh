@@ -10,9 +10,22 @@ done
 fstconcat compiled/horas.fst compiled/e_to_colon.fst compiled/text2num_aux.fst
 fstconcat compiled/text2num_aux.fst compiled/minutos.fst compiled/text2num.fst
 
-fstconcat compiled/horas.fst compiled/zero_minutos.fst compiled/lazy2num.fst
+fstconcat compiled/e_to_colon.fst compiled/minutos.fst compiled/lazy2num_aux1.fst
+fstunion  compiled/lazy2num_aux1.fst compiled/zero_minutos.fst compiled/lazy2num_aux2.fst
+fstconcat compiled/horas.fst compiled/lazy2num_aux2.fst compiled/lazy2num.fst
 
-rm compiled/e_to_colon.fst compiled/text2num_aux.fst compiled/zero_minutos.fst
+fstproject compiled/horas.fst compiled/horas2text.fst
+fstproject compiled/e_to_colon.fst compiled/e2text.fst
+fstunion compiled/meias.fst compiled/quartos.fst compiled/meias_quartos.fst
+fstconcat compiled/horas2text.fst compiled/e2text.fst compiled/rich2text_aux.fst
+fstconcat compiled/rich2text_aux.fst compiled/meias_quartos.fst compiled/rich2text.fst
+
+fstcompose  compiled/rich2text.fst  compiled/text2num.fst compiled/rich2num_aux.fst
+fstunion compiled/rich2num_aux.fst compiled/lazy2num.fst compiled/rich2num.fst
+
+rm compiled/e_to_colon.fst compiled/text2num_aux.fst
+rm compiled/zero_minutos.fst compiled/lazy2num_aux1.fst compiled/lazy2num_aux2.fst
+rm compiled/horas2text.fst compiled/e2text.fst compiled/meias_quartos.fst compiled/rich2text_aux.fst
 
 for i in compiled/*.fst; do
 	echo "Creating image: images/$(basename $i '.fst').pdf"
@@ -36,3 +49,9 @@ fstcompose compiled/teste_text2num.fst compiled/text2num.fst | fstshortestpath |
 
 echo "Testing the transducer 'lazy2num' with the input 'tests/teste_lazy2num.txt'"
 fstcompose compiled/teste_lazy2num.fst compiled/lazy2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'rich2text' with the input 'tests/teste_rich2text.txt'"
+fstcompose compiled/teste_rich2text.fst compiled/rich2text.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
+
+echo "Testing the transducer 'rich2num' with the input 'tests/teste_rich2num.txt'"
+fstcompose compiled/teste_rich2num.fst compiled/rich2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
