@@ -1,9 +1,12 @@
 #!/bin/bash
 
+rm images/* compiled/*
+
 for i in sources/*.txt tests/*.txt; do
 	echo "Compiling: $i"
     fstcompile --isymbols=syms.txt --osymbols=syms.txt $i | fstarcsort > compiled/$(basename $i ".txt").fst
 done
+
 
 #create text2num
 fstconcat compiled/horas.fst compiled/e_to_colon.fst compiled/text2num_aux.fst
@@ -39,31 +42,7 @@ for i in compiled/*.fst; do
     fstdraw --portrait --isymbols=syms.txt --osymbols=syms.txt $i | dot -Tpdf > images/$(basename $i '.fst').pdf
 done
 
-echo "Testing the transducer 'horas' with the input 'tests/teste_horas.txt'"
-fstcompose compiled/teste_horas.fst compiled/horas.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
-
-echo "Testing the transducer 'minutos' with the input 'tests/teste_minutos.txt'"
-fstcompose compiled/teste_minutos.fst compiled/minutos.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
-
-echo "Testing the transducer 'meias' with the input 'tests/teste_meias.txt'"
-fstcompose compiled/teste_meias.fst compiled/meias.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
-
-echo "Testing the transducer 'quartos' with the input 'tests/teste_quartos.txt'"
-fstcompose compiled/teste_quartos.fst compiled/quartos.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
-
-echo "Testing the transducer 'text2num' with the input 'tests/teste_text2num.txt'"
-fstcompose compiled/teste_text2num.fst compiled/text2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
-
-echo "Testing the transducer 'lazy2num' with the input 'tests/teste_lazy2num.txt'"
-fstcompose compiled/teste_lazy2num.fst compiled/lazy2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
-
-echo "Testing the transducer 'rich2text' with the input 'tests/teste_rich2text.txt'"
-fstcompose compiled/teste_rich2text.fst compiled/rich2text.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
-
 #Testing rich2num
-
-echo "Testing the transducer 'rich2num' with the input 'tests/teste_rich2num.txt'"
-fstcompose compiled/teste_rich2num.fst compiled/rich2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
 
 echo "Testing the transducer 'rich2num' with the input 'tests/sleepA_86375.txt'"
 fstcompose compiled/sleepA_86375.fst compiled/rich2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
@@ -78,9 +57,6 @@ echo "Testing the transducer 'rich2num' with the input 'tests/wakeupA_89469.txt
 fstcompose compiled/wakeupA_89469.fst compiled/rich2num.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
 
 #Testing num2text
-
-echo "Testing the transducer 'num2text' with the input 'tests/teste_num2text.txt'"
-fstcompose compiled/teste_num2text.fst compiled/num2text.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt
 
 echo "Testing the transducer 'num2text' with the input 'tests/sleepB_86375.txt'"
 fstcompose compiled/sleepB_86375.fst compiled/num2text.fst | fstshortestpath | fstproject --project_type=output | fstrmepsilon | fsttopsort | fstprint --acceptor --isymbols=./syms.txt

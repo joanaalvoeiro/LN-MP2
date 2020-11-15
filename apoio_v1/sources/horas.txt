@@ -1,38 +1,38 @@
-0   1   eps         0
-1   2   uma         1
-1   3   zero        0
-1   3   duas        2  
-1   3   tres        3
-1   3   quatro      4
-1   3   cinco       5
-1   3   seis        6
-1   3   sete        7
-1   3   oito        8
-1   3   nove        9
-0   4   eps         1
-4   5   dez         0
-4   5   onze        1
-4   5   doze        2
-4   5   treze       3
-4   5   catorze     4
-4   5   quinze      5
-4   5   dezasseis   6
-4   5   dezassete   7
-4   5   dezoito     8
-4   5   dezanove    9
-0   6   vinte       2
-6   7   e           eps
-6   7   eps         eps
-7   8   uma         1
-7   8   duas        2  
-7   8   tres        3
-7   8   eps         0
-2   9   hora        eps
-2   9   eps         eps
-3   9   horas       eps
-3   9   eps         eps
-5   9   horas       eps
-5   9   eps         eps
-8   9   horas       eps
-8   9   eps         eps
+0   1   eps         0       0.1
+1   2   uma         1       0.1
+1   3   zero        0       0.1
+1   3   duas        2       0.1
+1   3   tres        3       0.1
+1   3   quatro      4       0.1
+1   3   cinco       5       0.1
+1   3   seis        6       0.1
+1   3   sete        7       0.1
+1   3   oito        8       0.1
+1   3   nove        9       0.1
+0   4   eps         1       0.1
+4   5   dez         0       0.1
+4   5   onze        1       0.1
+4   5   doze        2       0.1
+4   5   treze       3       0.1
+4   5   catorze     4       0.1
+4   5   quinze      5       0.1
+4   5   dezasseis   6       0.1
+4   5   dezassete   7       0.1
+4   5   dezoito     8       0.1
+4   5   dezanove    9       0.1
+0   6   vinte       2       0.1
+6   7   e           eps     0
+6   7   eps         eps     0.1
+7   8   uma         1       0.1
+7   8   duas        2       0.1
+7   8   tres        3       0.1
+7   8   eps         0       0.1
+2   9   hora        eps     0
+2   9   eps         eps     0.1
+3   9   horas       eps     0
+3   9   eps         eps     0.1
+5   9   horas       eps     0
+5   9   eps         eps     0.1
+8   9   horas       eps     0
+8   9   eps         eps     0.1
 9
